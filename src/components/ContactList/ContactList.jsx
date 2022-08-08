@@ -5,12 +5,14 @@ import { deleteUser, getUsers } from 'redux/contacts/contscts-actions';
 import {
   filterSelector,
   itemsSelector,
+  loadingSelector,
 } from 'redux/contacts/contacts-selectors';
 //----------------------------------------------------------------//
 
 const ContactList = () => {
   const items = useSelector(itemsSelector);
   const filter = useSelector(filterSelector);
+  const isLoading = useSelector(loadingSelector);
   const dispatch = useDispatch();
   const contacts = items.filter(({ name }) =>
     name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
@@ -22,22 +24,25 @@ const ContactList = () => {
   const deleteContact = id => {
     dispatch(deleteUser(id));
   };
-
-  return (
-    <ul>
-      {contacts.map(({ id, name, phone }) => {
-        return (
-          <ContactItem
-            key={id}
-            id={id}
-            name={name}
-            phone={phone}
-            onDelete={deleteContact}
-          />
-        );
-      })}
-    </ul>
-  );
+  if (isLoading) {
+    return <h2>...loading</h2>;
+  } else {
+    return (
+      <ul>
+        {contacts.map(({ id, name, phone }) => {
+          return (
+            <ContactItem
+              key={id}
+              id={id}
+              name={name}
+              phone={phone}
+              onDelete={deleteContact}
+            />
+          );
+        })}
+      </ul>
+    );
+  }
 };
 
 export { ContactList };

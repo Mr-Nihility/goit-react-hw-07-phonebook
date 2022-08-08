@@ -1,4 +1,5 @@
 import axios from 'axios';
+//--------------------------------------------------------------------------------------------//
 const BASE_URL = 'https://62f0a99b57311485d1342b64.mockapi.io/dz';
 const mockapi = axios.create({ baseURL: BASE_URL });
 
