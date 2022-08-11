@@ -34,7 +34,7 @@ const Form = () => {
       alert('Please, fill all fields');
       return;
     }
-    const inContacts = contacts.some(
+    const inContacts = contacts?.some(
       item => item.name.toLowerCase() === name.toLowerCase()
     );
 

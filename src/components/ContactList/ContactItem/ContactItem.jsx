@@ -1,12 +1,20 @@
 import s from './ContactItem.module.css';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { loadingSelector } from 'redux/contacts/contacts-selectors';
 //----------------------------------------------------//
 const ContactItem = ({ name, phone, onDelete, id }) => {
+  const loading = useSelector(loadingSelector);
   return (
     <li className={s.item}>
       <p className={s.name}>{name}</p>
       <p className={s.tel}>{phone}</p>
-      <button type="button" onClick={() => onDelete(id)} className="btn">
+      <button
+        type="button"
+        disabled={loading}
+        onClick={() => onDelete(id)}
+        className="btn"
+      >
         Delete
       </button>
     </li>
